@@ -7,3 +7,8 @@ When deploying a clean yesod app to heroku I found that the `pcre` C library was
 
 In the likely event that I'm unable to maintain this library, please don't hesitate to nominate yourself as a maintainer - feel free to send me a message (perhaps on google+ if I don't respond on github). I will happily transfer ownership of the upstream fork to anyone willing to deal with it.
 
+
+Acknowledgements
+----------------
+Most of the initial code was taken from https://github.com/grosskur/heroku-buildpack-vendor
+

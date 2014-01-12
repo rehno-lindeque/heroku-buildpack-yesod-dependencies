@@ -1,0 +1,57 @@
+#!/bin/bash
+# pcre <build-dir> <cache-dir> <dest-dir> <version>
+
+# fail fast
+set -o errexit
+set -o nounset
+set -o pipefail
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+scriptname=$(basename $0)
+case $# in
+  4) :;;
+  *) echo "$scriptname: usage: $scriptname BUILD_DIR CACHE_DIR DEST_DIR VERSION" >&2; exit 2;;
+esac
+
+build_dir="$1"
+cache_dir="$2"
+dest_dir="$3"
+version="$4"
+
+mirror=iweb
+base_url=http://$mirror.dl.sourceforge.net/project/pcre/pcre/$version
+extension=tar.gz
+
+prefix=/app/.heroku/vendor
+package=$scriptname
+dir=$package-$version
+archive=$package-$version.$extension
+url=$base_url/$archive
+archive_dir=$cache_dir/archives
+num_cpu=$(grep -c ^bogomips /proc/cpuinfo)
+
+mkdir -p $archive_dir
+if [ ! -f $archive_dir/$archive ]
+then
+  echo "Downloading $url"
+  rm -f $archive_dir/$archive.new
+  curl -L# "$url" > $archive_dir/$archive.new
+  mv $archive_dir/$archive.new $archive_dir/$archive
+fi
+
+echo "Extracting $archive"
+tar -C /tmp -xf $archive_dir/$archive
+
+pushd /tmp/$dir
+echo "Building $dir"
+./configure --prefix=$prefix --enable-jit
+make -j$num_cpu
+make install DESTDIR=$dest_dir
+
+# Delete unnecessary man pages
+rm -rf $dest_dir/app/.heroku/vendor/share
+popd
+
