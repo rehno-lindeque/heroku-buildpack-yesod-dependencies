@@ -91,12 +91,21 @@ for dep in "${deps[@]}"; do
   tar -C $build_dir/.heroku -xzf $binary_archive vendor
 done 
 
-echo "-----> Creating $profile_file"
-mkdir -p $(dirname $profile_file)
-cat <<EOT >$profile_file
-export PATH=/app/.heroku/vendor/sbin:/app/.heroku/vendor/bin:\$PATH
-export LIBRARY_PATH=\${LIBRARY_PATH:-/app/.heroku/vendor/lib}
-export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH:-/app/.heroku/vendor/lib}
-export LANG=\${LANG:-en_US.UTF-8}
-EOT
+# echo "-----> Creating $profile_file"
+# mkdir -p $(dirname $profile_file)
+# cat <<EOT >$profile_file
+# export PATH=/app/.heroku/vendor/sbin:/app/.heroku/vendor/bin:\$PATH
+# export LIBRARY_PATH=\${LIBRARY_PATH:-/app/.heroku/vendor/lib}
+# export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH:-/app/.heroku/vendor/lib}
+# export LANG=\${LANG:-en_US.UTF-8}
+# EOT
 
+export PATH=/app/.heroku/vendor/sbin:/app/.heroku/vendor/bin:$PATH
+export LIBRARY_PATH=${LIBRARY_PATH:-/app/.heroku/vendor/lib}
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-/app/.heroku/vendor/lib}
+
+# echo "-----> Creating $profile_file"
+# mkdir -p $(dirname $profile_file)
+# cat <<EOT >$profile_file
+# export LANG=${LANG:-en_US.UTF-8}
+# EOT
