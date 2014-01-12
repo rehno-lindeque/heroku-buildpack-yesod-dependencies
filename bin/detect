@@ -12,13 +12,13 @@ case $# in
   *) echo "$scriptname: usage: $scriptname BUILD_DIR" >&2; exit 2;;
 esac
 
-build_dir="$1"
+# build_dir="$1"
 
-if [ -f $build_dir/.vendor-packages ]
-then
-  echo vendor
-  exit 0
-else
-  exit 1
-fi
-
+# if [ -f $build_dir/.vendor-packages ]
+# then
+#   echo vendor
+#   exit 0
+# else
+#   exit 1
+# fi
+echo "----> Yesod dependencies (1.2.4)"
