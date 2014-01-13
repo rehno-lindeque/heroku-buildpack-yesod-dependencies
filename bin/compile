@@ -68,8 +68,8 @@ for dep in "${deps[@]}"; do
   if [ ! -f $binary_archive ]
   then
     # Create clean output directory
-    rm -rf $dest_dir
-    mkdir $dest_dir
+    #rm -rf $dest_dir
+    #mkdir $dest_dir
 
     echo "-----> Building $package-$version"
     $script_dir/$package $build_dir $cache_dir $dest_dir $version | indent
