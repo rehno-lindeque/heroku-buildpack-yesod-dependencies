@@ -47,6 +47,10 @@ profile_file=$build_dir/.profile.d/vendor.sh
 export PATH=$build_dir/.heroku/vendor/bin:$PATH
 export CPPFLAGS=-I$build_dir/.heroku/vendor/include
 export LDFLAGS=-L$build_dir/.heroku/vendor/lib
+export LANG=en_US.UTF-8
+export C_INCLUDE_PATH=$build_dir/.heroku/vendor/include
+export CPLUS_INCLUDE_PATH=$build_dir/.heroku/vendor/include
+export LIBRARY_PATH=$build_dir/.heroku/vendor/lib
 export LD_LIBRARY_PATH=$build_dir/.heroku/vendor/lib
 export PKG_CONFIG_PATH=$build_dir/.heroku/vendor/lib/pkg-config
 
@@ -98,14 +102,4 @@ done
 # export LIBRARY_PATH=\${LIBRARY_PATH:-/app/.heroku/vendor/lib}
 # export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH:-/app/.heroku/vendor/lib}
 # export LANG=\${LANG:-en_US.UTF-8}
-# EOT
-
-export PATH=/app/.heroku/vendor/sbin:/app/.heroku/vendor/bin:$PATH
-export LIBRARY_PATH=${LIBRARY_PATH:-/app/.heroku/vendor/lib}
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:-/app/.heroku/vendor/lib}
-
-# echo "-----> Creating $profile_file"
-# mkdir -p $(dirname $profile_file)
-# cat <<EOT >$profile_file
-# export LANG=${LANG:-en_US.UTF-8}
 # EOT
