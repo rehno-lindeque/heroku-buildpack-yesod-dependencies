@@ -19,8 +19,7 @@ esac
 build_dir="$1"
 cache_dir="$2"
 script_dir=$(dirname $0)/../script
-#dest_dir=/tmp/dest_dir
-dest_dir=""
+dest_dir=/tmp/dest_dir
 profile_file=$build_dir/.profile.d/vendor.sh
 
 #ccache=$build_dir/.heroku/vendor/bin/ccache
@@ -68,8 +67,8 @@ for dep in "${deps[@]}"; do
   if [ ! -f $binary_archive ]
   then
     # Create clean output directory
-    #rm -rf $dest_dir
-    #mkdir $dest_dir
+    rm -rf $dest_dir
+    mkdir $dest_dir
 
     echo "-----> Building $package-$version"
     $script_dir/$package $build_dir $cache_dir $dest_dir $version | indent
@@ -91,7 +90,7 @@ for dep in "${deps[@]}"; do
     mv $binary_archive.new $binary_archive
   fi
   mkdir -p $build_dir/.heroku
-  echo "-----> Unpacking $(basename $binary_archive)"
+  echo "-----> Unpacking $(basename $binary_archive) to $build_dir/.heroku"
   tar -C $build_dir/.heroku -xzf $binary_archive vendor
 done 
 
